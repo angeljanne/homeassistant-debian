@@ -4,10 +4,15 @@ ENV HASS_VERSION="2021.9.7"
 LABEL version=${HASS_VERSION}
 
 ADD startContainer /usr/bin/startContainer
+ADD pip.conf /root/.pip/pip.conf
 
 RUN mkdir /config && \
-    pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple/ wheel && \
-    pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple/ homeassistant==${HASS_VERSION}
+    cp /etc/apt/sources.list /etc/apt/sources.list_bak && \
+    sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install libpcap-dev -y && \
+    pip3 install wheel && \
+    pip3 install homeassistant==${HASS_VERSION}
 
 WORKDIR /config
 
