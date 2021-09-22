@@ -10,7 +10,7 @@ RUN mkdir /config && \
     cp /etc/apt/sources.list /etc/apt/sources.list_bak && \
     sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install libpcap-dev -y && \
+    apt-get install libpcap-dev ffmpeg -y && \
     pip3 install wheel && \
     pip3 install homeassistant==${HASS_VERSION}
 
